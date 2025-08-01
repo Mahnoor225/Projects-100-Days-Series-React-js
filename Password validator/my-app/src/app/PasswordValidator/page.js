@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 export default function PasswordValidator() {
   const [input, setInput] = useState("");
   const [strength, setStrength] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  
 
   // ✅ Run validation whenever input changes
   useEffect(() => {
@@ -25,6 +27,11 @@ export default function PasswordValidator() {
     }
   }, [input]);
 
+  const password = () => {
+    setShowPassword(!showPassword);
+  };
+ 
+
   return (
     <div>
       <h1 className="text-3xl m-10 text-center p-6 rounded-full bg-amber-700 text-white">
@@ -32,12 +39,15 @@ export default function PasswordValidator() {
       </h1>
 
       <div className="grid justify-center items-center gap-3">
-        <input
+      <div className="flex   items-center gap-3">
+          <input
           className="border p-2 text-center"
-          type="password"
+           type={showPassword ? "text" : "password"} // ✅ Use state here
           placeholder="Enter password"
           onChange={(e) => setInput(e.target.value)}
         />
+        <p onClick={password}>{showPassword ? "hide" : "show"}</p>
+      </div>
         <p className="text-lg font-semibold">{strength}</p>
       </div>
     </div>
